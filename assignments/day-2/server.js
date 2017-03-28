@@ -8,5 +8,5 @@ let readFile = BBPromise.promisify(fs.readFile);
 readdir(path)
 	.map(file => readFile(`${path}/${file}`, "utf-8"))
 	.map(gameJson => TicTacToeGame.fromJson(gameJson))
-	.then(game => console.log(game))
+	.then(gameList => console.log(gameList))
 	.catch(err => console.log(err));
