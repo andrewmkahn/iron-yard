@@ -5,7 +5,7 @@ let BBPromise = require('bluebird');
 let readdir = BBPromise.promisify(fs.readdir);
 let readFile = BBPromise.promisify(fs.readFile);
 
-let promise = readdir(path)
+readdir(path)
 	.map(file => readFile(`${path}/${file}`, "utf-8"))
 	.map(gameJson => TicTacToeGame.fromJson(gameJson))
 	.then(game => console.log(game))
