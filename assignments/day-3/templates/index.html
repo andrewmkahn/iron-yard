@@ -1,0 +1,25 @@
+{% extends "parentTemplate.html" %}
+
+{% block TTT %}
+Hello {{message}} from <code>nunjucks</code><br>
+We have {{ games | length }} games for you to play!
+
+{% include "macros.html" %}
+{% import "macros.html" as myMacros %}
+
+<ul>
+	{% for game in games %}
+		<li>
+			<a href={{ "/games/" + (loop.index - 1) }}>
+			{{ myMacros.personalizedMessage(game.humanFirst) }}
+			</a>
+			<form method="POST", action={{ "/games/" + (loop.index - 1) + "/delete" }}>
+				<button>Delete</button>
+				<input type="hidden" name="X-HTTP-METHOD" value="DELETE">
+			</form>
+		</li>
+	{% endfor %}
+</ul>
+
+<a href="/makeNewGame">New game</a>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "parentTemplate.html" %}
+
+{% block game %}
+
+<a href="/returnToSavedGames">-- Back</a><br>
+
+{% if game_data.isOver %}
+	The game is over.<br>
+	{% if game_data.humanFirst %}
+		{% if game_data.winner==1 %}
+			You have won.
+		{% else %}
+			The Singularity has won.
+		{% endif %}
+	{% else %}
+		{% if game_data.winner==2 %}
+			You have won.
+		{% else %}
+			The Singularity has won.
+		{% endif %}
+	{% endif %}
+{% endif %}
+
+<table>
+ {% for i in [0, 1, 2] %}
+ <tr>
+ {% for cell in game_data.board.slice((loop.index-1)*3, loop.index*3) %}
+ 	<td>
+ 		{% if cell === 0 %}
+ 			<form method="POST" action="{{ gameIndex }}">
+ 				<button></button>
+ 				<input type="hidden" name="row" value={{i}}>
+ 				<input type="hidden" name="col" value={{loop.index - 1}}>
+ 			</form>
+ 		{% elif cell === 1 %}
+ 			X
+ 		{% elif cell === 2 %}
+ 			O
+ 		{% endif %}
+ 	</td>
+ {% endfor %}
+ </tr>
+ {% endfor %}
+</table>
+
+<a href="{{ gameIndex }}/saveGame">Save game</a>
+
+{% endblock %}
